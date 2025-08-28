@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Marksheet Generator</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h2>Marksheet Generator</h2>
+ <div class="container">
+    <label>Name: <input type="text" id="studentName" placeholder="Enter student name"></label>
+    <label>Math: <input type="number" id="math" placeholder="Enter marks"></label>
+    <label>Science: <input type="number" id="science" placeholder="Enter marks"></label>
+    <label>English: <input type="number" id="english" placeholder="Enter marks"></label>
+    
+    <button onclick="generateMarksheet()">Generate Marksheet</button>
+
+    <h3>Result</h3>
+    <div id="output" class="result">Your result will appear here...</div>
+  </div>
+
+  <script>
+    function generateMarksheet() {
+      const name = document.getElementById("studentName").value.trim();
+      const math = parseFloat(document.getElementById("math").value);
+      const science = parseFloat(document.getElementById("science").value);
+      const english = parseFloat(document.getElementById("english").value);
+
+      if (!name || isNaN(math) || isNaN(science) || isNaN(english)) {
+        document.getElementById("output").innerHTML = "Please enter all fields correctly.";
+        return;
+      }
+
+      const total = math + science + english;
+      const average = total / 3;
+      let grade = "";
+
+      if (average >= 90) grade = "A";
+      else if (average >= 70) grade = "B";
+      else if (average >= 60) grade = "C";
+      else if (average >= 40) grade = "D";
+      else grade = "F";
+
+      document.getElementById("output").innerHTML = `
+        <strong>Name:</strong> ${name} <br>
+        <strong>Total Marks:</strong> ${total} <br>
+        <strong>Average:</strong> ${average.toFixed(2)} <br>
+        <strong>Grade:</strong> ${grade}
+      `;
+    }
+  </script>
+</body>
+</html>
